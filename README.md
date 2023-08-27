@@ -53,7 +53,7 @@ There is a python script in /chatbot-app/docker-run.sh will
 
 ```bash
 chmod +x docker-run.sh
-
+./docker-run.sh
 ```
 
 You can test this iamge locally
