@@ -2,28 +2,14 @@ version: "3.8"
 
 services:
   nextjs-app:
-    image: node:16
-    container_name: nextjs-container
-    working_dir: /usr/src/app
-    volumes:
-      - ./chatbot-app:/usr/src/app
-    environment:
-      - NODE_ENV=production
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aws-fcj-chatbot:latest
+    container_name: aws-fcj-container
     ports:
       - "3000:3000"
-    command: ["npm", "run", "dev"]
-    depends_on:
-      - nextjs-app-deps
-
-  nextjs-app-deps:
-    image: node:16
-    container_name: nextjs-deps-container
-    working_dir: /usr/src/app
-    volumes:
-      - ./chatbot-app:/usr/src/app
-    environment:
-      - NODE_ENV=production
-    command: ["npm", "install"]
-
-  # You can add other services here if needed, like a database or caching service.
+    env_file:
+      - .env
+    restart: unless-stopped
 
