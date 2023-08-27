@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: your-image-name:latest  # Thay thế bằng tên hợp lệ cho image của bạn
+    container_name: your-container-name  # Thay thế bằng tên hợp lệ cho container của bạn
+    ports:
+      - "3000:3000"
