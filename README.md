@@ -49,10 +49,11 @@ The nextjs project has a project structure as below
 
 ## Build and push an ECR image manulaly
 
-There is a python script in /chatbot-app/build.py will
+There is a python script in /chatbot-app/docker-run.sh will
 
 ```bash
-python3 build.py
+chmod +x docker-run.sh
+
 ```
 
 You can test this iamge locally
