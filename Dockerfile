@@ -1,31 +1,26 @@
+# Use the official Node.js image as base
+FROM node:16-alpine
 
-FROM node:16-alpine AS deps
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+# Set the working directory within the container
+WORKDIR /usr/src/app
 
-FROM node:16-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
+
+# Install project dependencies
+RUN npm install
+
+# Copy the rest of the application code
 COPY . .
-RUN yarn build
 
-FROM node:16-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV production
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
+# Expose the port that the Next.js app will run on
 EXPOSE 3000
-ENV PORT 3000
-CMD ["node", "server.js"]
+
+# Set environment variable for OpenAI API key
+ENV OPENAI_API_KEY=xxxxxxxxx
+
+# Build the Next.js app
+RUN npm run build
+
+# Start the Next.js app
+CMD ["npm", "start"]

@@ -1,11 +1,29 @@
 version: "3.8"
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: your-image-name:latest  # Thay thế bằng tên hợp lệ cho image của bạn
-    container_name: your-container-name  # Thay thế bằng tên hợp lệ cho container của bạn
+  nextjs-app:
+    image: node:16
+    container_name: nextjs-container
+    working_dir: /usr/src/app
+    volumes:
+      - ./chatbot-app:/usr/src/app
+    environment:
+      - NODE_ENV=production
     ports:
       - "3000:3000"
+    command: ["npm", "run", "dev"]
+    depends_on:
+      - nextjs-app-deps
+
+  nextjs-app-deps:
+    image: node:16
+    container_name: nextjs-deps-container
+    working_dir: /usr/src/app
+    volumes:
+      - ./chatbot-app:/usr/src/app
+    environment:
+      - NODE_ENV=production
+    command: ["npm", "install"]
+
+  # You can add other services here if needed, like a database or caching service.
+
