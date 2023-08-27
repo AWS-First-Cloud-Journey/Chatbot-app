@@ -1,5 +1,67 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+
+
+## Build Chatbot
+
+Prerequisites: you have to create a Hugging Face token [here]()
+
+Let go int the directory chatbot-app and create a new nextjs project
+
+```bash
+npx create-next-app@latest
+```
+
+Then install dependencies
+
+```bash
+npm install ai openai @huggingface/inference clsx lucide-react
+```
+
+Store your Hugging Face token in .env
+
+```bash
+OPENAI_API_KEY=xxxxxxxxx
+```
+
+The nextjs project has a project structure as below
+
+```
+|--chatbot-app
+   |--app
+      |--api
+         |--route.ts
+      |--global.css
+      |--icons.tsx
+      |--layout.tsx
+      |--page.tsx
+    |--public
+    |--.env
+    |--.eslintrc.json
+    |--Dockerfile
+    |--next.config.js
+    |--package-lock.json
+    |--package.json
+    |--postcss.config.js
+    |--tailwind.config.ts
+    |--tsconfig.json
+```
+
+## Build and push an ECR image manulaly
+
+There is a python script in /chatbot-app/build.py will
+
+```bash
+python3 build.py
+```
+
+You can test this iamge locally
+
+```bash
+sudo docker run -p 3000:3000 $IMAGE_NAME
+```
+
+
 ## Getting Started
 
 First, run the development server:
