@@ -3,9 +3,9 @@
 # parameters
 
 REGION="ap-southeast-1"
-REPO_NAME="aws-fcj-chatbot"
+REPO_NAME="aws-fcj-repo"
 ACCOUNT="XXXXXXXXXXXXXX"
-DOCKER_IMAGE="aws-fcj-chatbot"
+DOCKER_IMAGE="aws-fcj-chatbot-app"
 
 # delete all docker images
 
@@ -26,7 +26,7 @@ docker build -t $DOCKER_IMAGE .
 docker tag $DOCKER_IMAGE:latest $ACCOUNT.dkr.ecr.$REGION.amazonaws.com/$DOCKER_IMAGE:latest
 
 # create ecr repository
-aws ecr create-repository --registry-id $ACCOUNT --repository-name $REPO_NAME
+# aws ecr create-repository --registry-id $ACCOUNT --repository-name $REPO_NAME
 
 # Run the following command to push this image to your newly created AWS repository:
 
