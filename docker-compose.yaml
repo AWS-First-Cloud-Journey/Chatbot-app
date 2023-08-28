@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: aws-fcj-chatbot:latest
+    image: aws-fcj-chatbot-app:latest
     container_name: aws-fcj-container
     ports:
       - "3000:3000"
