@@ -3,7 +3,7 @@
 import { useChat } from "ai/react";
 import { User, Bot } from "lucide-react";
 import { SendIcon, GithubIcon, VercelIcon } from "./icons";
-import clsx from "clsx";
+import clsx from "clsx"; 
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
