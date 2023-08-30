@@ -1,4 +1,4 @@
-# Stage 1: Build the application
+# Use the official Node.js image for building and running
 FROM node:18-alpine AS build
 
 WORKDIR /usr/src/app
@@ -6,11 +6,8 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json to leverage Docker's caching
 COPY package*.json ./
 
-# Update npm to the latest version
-RUN npm install -g npm@latest
-
-# Install dependencies
-RUN npm install
+# Install only production dependencies and cache them
+RUN npm ci --only=production
 
 # Copy the rest of the application code
 COPY . .
@@ -18,19 +15,21 @@ COPY . .
 # Build the Next.js app
 RUN npm run build
 
-# Stage 2: Create the runtime image
+# Use a lightweight Node.js image for the runtime
 FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
-# Copy built files from the build stage
-COPY --from=build /usr/src/app .
+# Copy only the built files and production dependencies from the build stage
+COPY --from=build /usr/src/app/package.json /usr/src/app/package-lock.json ./
+COPY --from=build /usr/src/app/.next ./.next
+COPY --from=build /usr/src/app/public ./public
 
 # Expose the port that the Next.js app will run on
 EXPOSE 3000
 
 # Health check to monitor the application's status
-HEALTHCHECK --interval=30s --timeout=5s CMD curl -f http://localhost:3000 || exit 1
+HEALTHCHECK --interval=30s --timeout=5s CMD wget -q --spider http://localhost:3000 || exit 1
 
 # Start the Next.js app
 CMD ["npm", "start"]
