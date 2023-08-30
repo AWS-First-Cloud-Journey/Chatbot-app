@@ -13,7 +13,7 @@ sudo usermod -a -G docker ec2-user
 docker info
 ```
 
-##Install Docker Compose on EC2
+## Install Docker Compose on EC2
 
 Install Docker Compose by running the following commands:
 
