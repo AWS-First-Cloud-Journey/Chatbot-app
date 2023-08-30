@@ -72,6 +72,35 @@ Test your Docker image by running a container and accessing it on port 3000:
 docker run -p 3000:3000 aws-fcj-chatbot-app:latest
 ```
 
+
+## Docker Compose
+
+Once you're in the correct directory, run the following command to start your application using Docker Compose:
+
+```
+docker-compose up
+
+```
+If you want to run it in detached mode (in the background), use:
+
+```
+docker-compose up -d
+```
+
+To stop the containers and remove the resources, you can use the following command:
+
+```
+docker-compose down
+```
+
+If you want to remove volumes as well (be careful, as this will delete data), use:
+
+```
+docker-compose down -v
+```
+
+Docker Compose will read the docker-compose.yaml file, create the necessary networks, containers, and volumes, and start your application.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 
