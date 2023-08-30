@@ -5,7 +5,10 @@ WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json to leverage Docker's caching
 COPY package*.json ./
-RUN npm install
+
+# Install npm with a specific version (9.8.1)
+RUN npm install -g npm@9.8.1 && \
+    npm install
 
 # Copy the rest of the application code
 COPY . .
