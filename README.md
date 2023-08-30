@@ -13,7 +13,15 @@ sudo usermod -a -G docker ec2-user
 docker info
 ```
 
+##Install Docker Compose on EC2
 
+Install Docker Compose by running the following commands:
+
+```
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose version
+```
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
