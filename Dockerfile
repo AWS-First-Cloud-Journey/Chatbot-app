@@ -1,4 +1,4 @@
-# Use the official Node.js image for building and running
+# Use the official Node.js image for building
 FROM node:18-alpine AS build
 
 WORKDIR /usr/src/app
@@ -6,8 +6,9 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json to leverage Docker's caching
 COPY package*.json ./
 
-# Install only production dependencies and cache them
-RUN npm ci --only=production
+# Install npm with a specific version (9.8.1)
+RUN npm install -g npm@9.8.1 && \
+    npm install
 
 # Copy the rest of the application code
 COPY . .
@@ -20,16 +21,18 @@ FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
-# Copy only the built files and production dependencies from the build stage
-COPY --from=build /usr/src/app/package.json /usr/src/app/package-lock.json ./
-COPY --from=build /usr/src/app/.next ./.next
-COPY --from=build /usr/src/app/public ./public
+# Copy built files from the build stage
+COPY --from=build /usr/src/app .
+
+# Install production dependencies only
+RUN npm install --production
 
 # Expose the port that the Next.js app will run on
 EXPOSE 3000
 
 # Health check to monitor the application's status
-HEALTHCHECK --interval=30s --timeout=5s CMD wget -q --spider http://localhost:3000 || exit 1
+HEALTHCHECK --interval=30s --timeout=5s CMD curl -f http://localhost:3000 || exit 1
 
 # Start the Next.js app
 CMD ["npm", "start"]
+
