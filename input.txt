@@ -1,0 +1,4 @@
+REGION="ap-southeast-1"
+REPO_NAME="aws-fcj-repo"
+ACCOUNT="XXXXXXXX"
+DOCKER_IMAGE="aws-fcj-chatbot-app"

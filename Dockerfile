@@ -5,7 +5,10 @@ WORKDIR /usr/src/app
 
 # Copy package.json and package-lock.json to leverage Docker's caching
 COPY package*.json ./
-RUN npm install
+
+# Install npm with a specific version (9.8.1)
+RUN npm install -g npm@9.8.1 && \
+    npm install
 
 # Copy the rest of the application code
 COPY . .
@@ -21,6 +24,9 @@ WORKDIR /usr/src/app
 # Copy built files from the build stage
 COPY --from=build /usr/src/app .
 
+# Install production dependencies only
+RUN npm install --production
+
 # Expose the port that the Next.js app will run on
 EXPOSE 3000
 
@@ -29,3 +35,4 @@ HEALTHCHECK --interval=30s --timeout=5s CMD curl -f http://localhost:3000 || exi
 
 # Start the Next.js app
 CMD ["npm", "start"]
+
