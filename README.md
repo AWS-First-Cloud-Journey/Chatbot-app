@@ -23,6 +23,55 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose version
 ```
 
+## Install NPM on EC2
+Install NVM and Node.js on your EC2 instance:
+
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+. ~/.nvm/nvm.sh
+nvm install --lts
+node -e "console.log('Running Node.js ' + process.version)"
+npm install -g npm@latest
+npm install next@latest
+npm install ai openai @huggingface/inference clsx lucide-react latest
+
+```
+
+## Build Docker Images
+
+Create a file named input.txt and add the following content:
+
+```
+REGION="ap-southeast-1"
+REPO_NAME="aws-fcj-repo"
+ACCOUNT="XXXXXXXXXXX"
+DOCKER_IMAGE="aws-fcj-chatbot-app"
+```
+
+## Custom Docker Run
+
+Create and edit the docker-run.sh script:
+
+```
+vi docker-run.sh
+```
+
+## Run Docker Images and Push to ECR
+Execute the following commands to run your Docker images and push them to Amazon ECR:
+
+```
+sudo su
+chmod +x docker-run.sh
+./docker-run.sh
+```
+
+## Test Docker Images
+Test your Docker image by running a container and accessing it on port 3000:
+
+```
+docker run -p 3000:3000 aws-fcj-chatbot-app:latest
+```
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 
