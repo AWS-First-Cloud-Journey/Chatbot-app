@@ -1,4 +1,4 @@
-# Use the official Node.js image for building
+# Stage 1: Build the application
 FROM node:18-alpine AS build
 
 WORKDIR /usr/src/app
@@ -6,9 +6,11 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json to leverage Docker's caching
 COPY package*.json ./
 
-# Install npm with a specific version (9.8.1)
-RUN npm install -g npm@9.8.1 && \
-    npm install
+# Update npm to the latest version
+RUN npm install -g npm@latest
+
+# Install dependencies
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .
@@ -16,7 +18,7 @@ COPY . .
 # Build the Next.js app
 RUN npm run build
 
-# Use a lightweight Node.js image for the runtime
+# Stage 2: Create the runtime image
 FROM node:18-alpine
 
 WORKDIR /usr/src/app
