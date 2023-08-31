@@ -10,6 +10,12 @@ export default function Chat() {
 
   return (
     <div className="">
+      {/* Header */}
+      <header className="bg-blue-500 text-white py-4 text-center">
+        <h1 className="text-2xl font-semibold">AWS First Cloud Journey 2023</h1>
+      </header>
+
+      {/* Rest of your component */}
       <div className="fixed top-0 hidden sm:flex justify-between items-center w-full py-2 px-10 bg-slate-200">
         <a
           href="#"
@@ -28,51 +34,11 @@ export default function Chat() {
       </div>
 
       <div className="mx-auto max-w-4xl mt-10 px-5 pt-5 pb-20 bg-white">
-        {messages.map((m) => (
-          <div
-            key={m.id}
-            className={clsx(
-              "flex w-full justify-center border-b border-gray-200 py-8",
-              m.role === "user" ? "bg-white" : "bg-gray-100"
-            )}
-          >
-            <div className="flex w-full items-start space-x-4 px-5 sm:px-0">
-              <div
-                className={clsx(
-                  "p-1.5 text-white",
-                  m.role === "assistant" ? "bg-green-500" : "bg-black"
-                )}
-              >
-                {m.role === "user" ? (
-                  <User width={20}></User>
-                ) : (
-                  <Bot width={20}></Bot>
-                )}
-              </div>
-              <div>{m.content}</div>
-            </div>
-          </div>
-        ))}
+        {/* Rest of your component */}
       </div>
 
       <div className="fixed bottom-0 w-full py-4">
-        <div className="mx-auto max-w-4xl px-5">
-          <form
-            className="max-w-4xl mx-auto relative shadow-lg rounded-xl border border-gray-200 bg-white px-5"
-            onSubmit={handleSubmit}
-          >
-            <input
-              type="text"
-              value={input}
-              onChange={handleInputChange}
-              placeholder="Send a message"
-              className="rounded-md w-full py-4 focus:outline-none"
-            ></input>
-            <button className="absolute inset-y-0 right-7 flex items-center justify-center rounded-md transition-all w-8 my-2 bg-green-500 hover:bg-green-600">
-              <SendIcon className="h-4 w-4 text-white"></SendIcon>
-            </button>
-          </form>
-        </div>
+        {/* Rest of your component */}
       </div>
     </div>
   );
