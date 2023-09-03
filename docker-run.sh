@@ -12,5 +12,9 @@ aws ecr get-login-password --region "$REGION" | docker login --username AWS --pa
 # Build and tag Docker image
 docker build -t "$DOCKER_IMAGE" .
 
+# Tag
+
+docker tag "$DOCKER_IMAGE":latest "$ACCOUNT".dkr.ecr."$REGION".amazonaws.com/"$DOCKER_IMAGE":latest
+
 # Push Docker image to repository
 docker push "$ACCOUNT".dkr.ecr."$REGION".amazonaws.com/"$DOCKER_IMAGE":latest
