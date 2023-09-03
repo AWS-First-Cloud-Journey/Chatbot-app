@@ -18,3 +18,4 @@ docker tag "$DOCKER_IMAGE":latest "$ACCOUNT".dkr.ecr."$REGION".amazonaws.com/"$D
 # Push Docker image to the repository
 docker push "$ACCOUNT".dkr.ecr."$REGION".amazonaws.com/"$DOCKER_IMAGE":latest
 
+
